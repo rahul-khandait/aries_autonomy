@@ -131,7 +131,10 @@
             <joint_name>arm_base_joint</joint_name>
             <joint_name>arm_shoulder_joint</joint_name>
             <joint_name>arm_elbow_joint</joint_name>
-            <joint_name>arm_gripper_joint</joint_name>
+            <joint_name>arm_wrist_joint</joint_name>
+            <joint_name>arm_gripper_base_joint</joint_name>
+            <joint_name>arm_gripper_left_joint</joint_name>
+            <joint_name>arm_gripper_right_joint</joint_name>
             <joint_name>L_Rocker_Joint</joint_name>
             <joint_name>R_Rocker_Joint</joint_name>
             <joint_name>L_Boggie_Joint</joint_name>
@@ -169,7 +172,7 @@
     </plugin>
 
      
-    <plugin filename="gz-sim-joint-position-controller-system"
+    <!-- <plugin filename="gz-sim-joint-position-controller-system"
         name="gz::sim::systems::JointPositionController">
       <joint_name>L_Boggie_Joint</joint_name>
       <topic>/model/aries/joint/L_Boggie_Joint/cmd_pos</topic>
@@ -181,13 +184,14 @@
         name="gz::sim::systems::JointPositionController">
       <joint_name>R_Boggie_Joint</joint_name>
       <topic>/model/aries/joint/R_Boggie_Joint/cmd_pos</topic>
-    </plugin>
+    </plugin> -->
 
     
     <plugin filename="gz-sim-joint-position-controller-system"
         name="gz::sim::systems::JointPositionController">
       <joint_name>arm_base_joint</joint_name>
       <topic>/model/aries/joint/arm_base_joint/cmd_pos</topic>
+      <initial_position>0.0</initial_position>
       <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
       <i_min>-6</i_min><i_max>6</i_max>
     </plugin>
@@ -196,6 +200,7 @@
         name="gz::sim::systems::JointPositionController">
       <joint_name>arm_shoulder_joint</joint_name>
       <topic>/model/aries/joint/arm_shoulder_joint/cmd_pos</topic>
+      <initial_position>0.510</initial_position>
       <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
       <i_min>-6</i_min><i_max>6</i_max>
     </plugin>
@@ -204,19 +209,47 @@
         name="gz::sim::systems::JointPositionController">
       <joint_name>arm_elbow_joint</joint_name>
       <topic>/model/aries/joint/arm_elbow_joint/cmd_pos</topic>
+      <initial_position>1.748</initial_position>
       <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
       <i_min>-6</i_min><i_max>6</i_max>
     </plugin>
 
     <plugin filename="gz-sim-joint-position-controller-system"
         name="gz::sim::systems::JointPositionController">
-      <joint_name>arm_gripper_joint</joint_name>
-      <topic>/model/aries/joint/arm_gripper_joint/cmd_pos</topic>
+      <joint_name>arm_wrist_joint</joint_name>
+      <topic>/model/aries/joint/arm_wrist_joint/cmd_pos</topic>
+      <initial_position>1.420</initial_position>
       <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
       <i_min>-6</i_min><i_max>6</i_max>
     </plugin>
 
-    
+    <plugin filename="gz-sim-joint-position-controller-system"
+        name="gz::sim::systems::JointPositionController">
+      <joint_name>arm_gripper_base_joint</joint_name>
+      <topic>/model/aries/joint/arm_gripper_base_joint/cmd_pos</topic>
+      <initial_position>0.0</initial_position>
+      <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
+      <i_min>-6</i_min><i_max>6</i_max>
+    </plugin>
+
+    <plugin filename="gz-sim-joint-position-controller-system"
+        name="gz::sim::systems::JointPositionController">
+      <joint_name>arm_gripper_left_joint</joint_name>
+      <topic>/model/aries/joint/arm_gripper_left_joint/cmd_pos</topic>
+      <initial_position>0.0</initial_position>
+      <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
+      <i_min>-6</i_min><i_max>6</i_max>
+    </plugin>
+
+    <plugin filename="gz-sim-joint-position-controller-system"
+        name="gz::sim::systems::JointPositionController">
+      <joint_name>arm_gripper_right_joint</joint_name>
+      <topic>/model/aries/joint/arm_gripper_right_joint/cmd_pos</topic>
+      <initial_position>0.0</initial_position>
+      <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
+      <i_min>-6</i_min><i_max>6</i_max>
+    </plugin>
+
   </gazebo>
 
   

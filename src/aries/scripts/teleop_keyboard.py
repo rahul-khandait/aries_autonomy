@@ -6,22 +6,26 @@ Publishes position setpoints (std_msgs/Float64) to the ROS ↔ Gazebo bridge t
   /aries/arm_base_joint/cmd_pos
   /aries/arm_shoulder_joint/cmd_pos
   /aries/arm_elbow_joint/cmd_pos
-  /aries/arm_gripper_joint/cmd_pos
+  /aries/arm_gripper_base_joint/cmd_pos
+  /aries/arm_wrist_joint/cmd_pos
+  /aries/arm_gripper_left_joint/cmd_pos
+  /aries/arm_gripper_right_joint/cmd_pos
 
 Also drives the mobile base with geometry_msgs/Twist on:
   /cmd_vel
 
 Default keybindings (tap or hold):
   Arm
-    Base        ← 4   6 →   (or ← →)
-    Shoulder    ↓ 2   8 ↑   (or ↓ ↑)
-    Elbow       ↓ 1   7 ↑
-    Gripper     close 3   9 open
+    Base            ← 4   6 →   (or ← →)
+    Shoulder        ↓ 2   8 ↑   (or ↓ ↑)
+    Elbow           ↓ 1   7 ↑
+    Gripper_base    ↓ -  + ↑
+    Gripper         5 toggle (open/close)
   Base (/cmd_vel)
     W/S  forward/back     A/D  rotate left/right     SPACE  stop
 
 Other keys:
-  r : reset all joints & velocities to 0
+  0 : reset all joints & velocities to 0
   [ / ] : decrease / increase step sizes (affects joints & speeds)
   h : show help & current values
   q or ESC (real key or glyph ␛) : quit
@@ -55,7 +59,10 @@ from geometry_msgs.msg import Twist
 TOPIC_BASE = "/aries/arm_base_joint/cmd_pos"
 TOPIC_SHOULDER = "/aries/arm_shoulder_joint/cmd_pos"
 TOPIC_ELBOW = "/aries/arm_elbow_joint/cmd_pos"
-TOPIC_GRIPPER = "/aries/arm_gripper_joint/cmd_pos"
+TOPIC_GRIPPER_BASE = "/aries/arm_gripper_base_joint/cmd_pos"
+TOPIC_GRIPPER_LEFT = "/aries/arm_gripper_left_joint/cmd_pos"
+TOPIC_GRIPPER_RIGHT = "/aries/arm_gripper_right_joint/cmd_pos"
+TOPIC_WRIST = "/aries/arm_wrist_joint/cmd_pos"
 TOPIC_CMD_VEL = "/cmd_vel"
 
 # ===== Joint limits pulled from aries/urdf/arm.xacro =====
@@ -63,7 +70,10 @@ JOINT_LIMITS = {
     "base": (-3.14, 3.14),
     "shoulder": (-1.918, 1.918),
     "elbow": (-1.748, 1.748),
-    "gripper": (-1.942, 1.942),
+    "gripper_base": (-1.57, 1.57),
+    "gripper_left": (0.0, 0.08925),
+    "gripper_right": (0.0, 0.08925),
+    "wrist": (-1.942, 1.942),
 }
 
 # ===== Velocity limits for /cmd_vel (m/s and rad/s) =====
@@ -72,14 +82,17 @@ VEL_LIMITS = {"lin": (-0.7, 0.7), "ang": (-0.5, 0.5)}
 @dataclass
 class ArmState:
     base: float = 0.0
-    shoulder: float = 0.700
-    elbow: float = 1.240
-    gripper: float = 1.190
+    shoulder: float = 0.510
+    elbow: float = 1.748
+    gripper_base: float = 0.0
+    gripper_left: float = 0.0
+    gripper_right: float = 0.0
+    wrist: float = 1.420
     v_lin: float = 0.0   # m/s
     v_ang: float = 0.0   # rad/s
 
     def clamp(self):
-        for j in ("base", "shoulder", "elbow", "gripper"):
+        for j in ("base", "shoulder", "elbow", "gripper_base", "gripper_left", "gripper_right", "wrist"):
             low, high = JOINT_LIMITS[j]
             v = getattr(self, j)
             if v < low:
@@ -96,12 +109,15 @@ class ArmDown:
     base: float = 0.0
     shoulder: float = 1.918
     elbow: float = 0.330
-    gripper: float = 0.980
+    wrist: float = 0.980
+    gripper_base: float = 0.0
+    gripper_left: float = 0.0
+    gripper_right: float = 0.0
     v_lin: float = 0.0   # m/s
     v_ang: float = 0.0   # rad/s
 
     def clamp(self):
-        for j in ("base", "shoulder", "elbow", "gripper"):
+        for j in ("base", "shoulder", "elbow", "gripper_base", "gripper_left", "gripper_right", "wrist"):
             low, high = JOINT_LIMITS[j]
             v = getattr(self, j)
             if v < low:
@@ -118,12 +134,15 @@ class ArmStraight:
     base: float = 0.0
     shoulder: float = 0.0
     elbow: float = 0.0
-    gripper: float = 0.0
+    gripper_base: float = 0.0
+    gripper_left: float = 0.0
+    gripper_right: float = 0.0
+    wrist: float = 0.0
     v_lin: float = 0.0   # m/s
     v_ang: float = 0.0   # rad/s
 
     def clamp(self):
-        for j in ("base", "shoulder", "elbow", "gripper"):
+        for j in ("base", "shoulder", "elbow", "gripper_base", "gripper_left", "gripper_right", "wrist"):
             low, high = JOINT_LIMITS[j]
             v = getattr(self, j)
             if v < low:
@@ -142,7 +161,10 @@ class AriesArmTeleop(Node):
         self.pub_base = self.create_publisher(Float64, TOPIC_BASE, 10)
         self.pub_shoulder = self.create_publisher(Float64, TOPIC_SHOULDER, 10)
         self.pub_elbow = self.create_publisher(Float64, TOPIC_ELBOW, 10)
-        self.pub_gripper = self.create_publisher(Float64, TOPIC_GRIPPER, 10)
+        self.pub_gripper_base = self.create_publisher(Float64, TOPIC_GRIPPER_BASE, 10)
+        self.pub_gripper_left = self.create_publisher(Float64, TOPIC_GRIPPER_LEFT, 10)
+        self.pub_gripper_right = self.create_publisher(Float64, TOPIC_GRIPPER_RIGHT, 10)
+        self.pub_wrist = self.create_publisher(Float64, TOPIC_WRIST, 10)
         self.pub_cmdvel = self.create_publisher(Twist, TOPIC_CMD_VEL, 10)
 
         self.state = ArmState()
@@ -162,7 +184,10 @@ class AriesArmTeleop(Node):
             (self.pub_base, self.state.base),
             (self.pub_shoulder, self.state.shoulder),
             (self.pub_elbow, self.state.elbow),
-            (self.pub_gripper, self.state.gripper),
+            (self.pub_gripper_base, self.state.gripper_base),
+            (self.pub_gripper_left, self.state.gripper_left),
+            (self.pub_gripper_right, self.state.gripper_right),
+            (self.pub_wrist, self.state.wrist),
         ):
             msg = Float64()
             msg.data = float(val)
@@ -225,25 +250,47 @@ class AriesArmTeleop(Node):
             f"{prefix}base={self.state.base:.3f}{low_high('base')}  "
             f"shoulder={self.state.shoulder:.3f}{low_high('shoulder')}  "
             f"elbow={self.state.elbow:.3f}{low_high('elbow')}  "
-            f"gripper={self.state.gripper:.3f}{low_high('gripper')}  "
+            f"wrist={self.state.wrist:.3f}{low_high('wrist')}  "
+            f"gripper_base={self.state.gripper_base:.3f}{low_high('gripper_base')}  "
+            f"gripper_left={self.state.gripper_left:.3f}{low_high('gripper_left')}  "
+            f"gripper_right={self.state.gripper_right:.3f}{low_high('gripper_right')}  "
             f" | v_lin={self.state.v_lin:.2f} m/s, v_ang={self.state.v_ang:.2f} rad/s ({vlow_high()})  "
             f" | step={self.step:.3f}, gstep={self.gstep:.3f}, vstep=({self.vstep_lin:.2f},{self.vstep_ang:.2f})"
         )
         self.get_logger().info(s)
+        
+    def is_gripper_open(self) -> bool:
+        """Heuristic: consider gripper open if it's past half of its max range."""
+        max_open = JOINT_LIMITS["gripper_left"][1]
+        return (self.state.gripper_left + self.state.gripper_right) * 0.5 > 0.5 * max_open
+
+    def set_gripper(self, open_: bool):
+        """Directly set the gripper to fully open or fully closed, then clamp & print status."""
+        target = JOINT_LIMITS["gripper_left"][1] if open_ else JOINT_LIMITS["gripper_left"][0]
+        self.state.gripper_left = float(target)
+        self.state.gripper_right = float(target)
+        self.state.clamp()
+        self.status(prefix="Gripper " + ("OPEN " if open_ else "CLOSE "))
+
+    def toggle_gripper(self):
+        """Toggle between open and closed gripper states with one keypress."""
+        self.set_gripper(not self.is_gripper_open())
 
     def print_help(self):
         banner = r"""
                     Aries Arm Teleop - keybindings
                     Arm joints
-                        Base        ← 4   6 →
-                        Shoulder    ↓ 2   8 ↑
-                        Elbow       ↓ 1   7 ↑
-                        Gripper     close 3   9 open
+                        Base            ← 4   6 →
+                        Shoulder        ↓ 2   8 ↑
+                        Elbow           ↓ 1   7 ↑
+                        Wrist           ↓ 3   9 ↑
+                        Gripper_base    ↓ -  + ↑
+                        Gripper         5 toggle (open/close)
 
                     Mobile base (/cmd_vel)
                         W/S forward/back   A/D rotate left/right   SPACE stop
 
-                    Other: r reset t downtomap y straight | [ / ] step-/step+ (affects joints & velocities) | h help | q or ESC quit
+                    Other: 0 reset t downtomap y straight | [ / ] step-/step+ (affects joints & velocities) | h help | q or ESC quit
                     """
         for line in banner.strip("\n").splitlines():
             self.get_logger().info(line)
@@ -313,7 +360,7 @@ def main():
                 break
             elif key == "h":
                 node.print_help()
-            elif key == "r":
+            elif key == "0":
                 node.reset()
             elif key == "t":
                 node.down()
@@ -337,9 +384,17 @@ def main():
             elif key == "7":
                 node.adjust("elbow", +node.step)
             elif key == "3":
-                node.adjust("gripper", -node.gstep)
+                node.adjust("wrist", -node.gstep)
             elif key == "9":
-                node.adjust("gripper", +node.gstep)
+                node.adjust("wrist", +node.gstep)
+            elif key == "-":
+                node.adjust("gripper_base", -node.gstep)
+            elif key == "+":
+                node.adjust("gripper_base", +node.gstep)
+            elif key == "5":
+                node.toggle_gripper()
+            
+            
             # Mobile base (/cmd_vel)
             elif key == "w":
                 node.adjust_vel(lin=+node.vstep_lin)

@@ -80,7 +80,7 @@ class WaypointFollower(Node):
         self.declare_parameter('odom_topic', '/odom')
         self.declare_parameter('imu_topic', '/imu')
         # IMPORTANT: string (JSON) for waypoints
-        self.declare_parameter('waypoints', '[[1.0, 0.0, 0.0], [1.0, 1.0, 3.14], [0.0, 0.0, 0.0]]')
+        self.declare_parameter('waypoints', '[[1.0, 0.0, 0.0], [0.0, 0.0, 0.0]]')
         self.declare_parameter('rate_hz', 30.0)
 
         self.declare_parameter('k_lin', 0.8)
@@ -229,16 +229,16 @@ class WaypointFollower(Node):
     def stop(self) -> None:
         self.pub_cmd.publish(Twist())
 
-def finish(self) -> None:
-    """Stop the robot and print a green 'Finished' banner once."""
-    if not self._done:
-        self.stop()
-        green = "\033[92m"  # bright green
-        reset = "\033[0m"
-        self.get_logger().info(green + "✓ Finished: all waypoints reached." + reset)
-        self._done = True
-    else:
-        self.stop()
+    def finish(self) -> None:
+        """Stop the robot and print a green 'Finished' banner once."""
+        if not self._done:
+            self.stop()
+            green = "\033[92m"  # bright green
+            reset = "\033[0m"
+            self.get_logger().info(green + "✓ Finished: all waypoints reached." + reset)
+            self._done = True
+        else:
+            self.stop()
 
 
 def main() -> None:
@@ -249,7 +249,7 @@ def main() -> None:
     except KeyboardInterrupt:
         node.get_logger().info('Shutting down (Ctrl-C).')
     finally:
-        node.stop()
+        node.finish()
         node.destroy_node()
         rclpy.shutdown()
 

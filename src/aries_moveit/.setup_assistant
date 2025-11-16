@@ -6,12 +6,11 @@ moveit_setup_assistant_config:
     relative_path: config/aries.srdf
   package_settings:
     author_name: shreyas
-    author_email: patelshreyas517@gmail.com
-    generated_timestamp: 1760262235
+    author_email: shreyaspatel517@gmail.com
+    generated_timestamp: 1761040477
   control_xacro:
     command:
       - position
-      - velocity
     state:
       - position
       - velocity
@@ -21,7 +20,6 @@ moveit_setup_assistant_config:
   control_xacro:
     command:
       - position
-      - velocity
     state:
       - position
       - velocity

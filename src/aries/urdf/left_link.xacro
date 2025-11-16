@@ -19,14 +19,14 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="${mesh_location}/R_Rocker_Link.STL"/>
+                <mesh filename="${mesh_location}/L_Rocker_Link.STL"/>
             </geometry>
             <material name="silver"/>
         </visual>
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="${mesh_location}/R_Rocker_Link.STL"/>
+                <mesh filename="${mesh_location}/L_Rocker_Link.STL"/>
             </geometry>
         </collision>
     </link>
@@ -57,7 +57,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="${mesh_location}/R_1_Wheel_Link.STL"/>
+                <mesh filename="${mesh_location}/L_1_Wheel_Link.STL"/>
             </geometry>
             <material name="blue"/>
         </visual>
@@ -94,7 +94,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="${mesh_location}/R_2_Wheel_Link.STL"/>
+                <mesh filename="${mesh_location}/L_2_Wheel_Link.STL"/>
             </geometry>
             <material name="blue"/>
         </visual>
@@ -131,7 +131,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="${mesh_location}/R_3_Wheel_Link.STL"/>
+                <mesh filename="${mesh_location}/L_3_Wheel_Link.STL"/>
             </geometry>
             <material name="blue"/>
         </visual>
@@ -168,14 +168,14 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="${mesh_location}/R_Boggie_Link.STL"/>
+                <mesh filename="${mesh_location}/L_Boggie_Link.STL"/>
             </geometry>
             <material name="silver"/>
         </visual>
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="${mesh_location}/R_Boggie_Link.STL"/>
+                <mesh filename="${mesh_location}/L_Boggie_Link.STL"/>
             </geometry>
         </collision>
     </link>
@@ -187,7 +187,7 @@
         <child link="L_Boggie_Link"/>
         <axis xyz="0 0 -1"/>
         <limit lower="-0.391" upper="0.527" effort="10" velocity="100"/>
-        <dynamics damping="0.01" friction="0.01"/>
+        <dynamics damping="50" friction="5"/>
     </joint>
 
     

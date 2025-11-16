@@ -152,17 +152,17 @@
   gz_type_name:   "gz.msgs.Double"
   direction:      ROS_TO_GZ
 
-- ros_topic_name: "/aries/L_Boggie_Joint/cmd_pos"
-  gz_topic_name:  "/model/aries/joint/L_Boggie_Joint/cmd_pos"
-  ros_type_name:  "std_msgs/msg/Float64"
-  gz_type_name:   "gz.msgs.Double"
-  direction:      ROS_TO_GZ
+# - ros_topic_name: "/aries/L_Boggie_Joint/cmd_pos"
+#   gz_topic_name:  "/model/aries/joint/L_Boggie_Joint/cmd_pos"
+#   ros_type_name:  "std_msgs/msg/Float64"
+#   gz_type_name:   "gz.msgs.Double"
+#   direction:      ROS_TO_GZ
   
-- ros_topic_name: "/aries/R_Boggie_Joint/cmd_pos"
-  gz_topic_name:  "/model/aries/joint/R_Boggie_Joint/cmd_pos"
-  ros_type_name:  "std_msgs/msg/Float64"
-  gz_type_name:   "gz.msgs.Double"
-  direction:      ROS_TO_GZ
+# - ros_topic_name: "/aries/R_Boggie_Joint/cmd_pos"
+#   gz_topic_name:  "/model/aries/joint/R_Boggie_Joint/cmd_pos"
+#   ros_type_name:  "std_msgs/msg/Float64"
+#   gz_type_name:   "gz.msgs.Double"
+#   direction:      ROS_TO_GZ
 
 - ros_topic_name: "/aries/arm_shoulder_joint/cmd_pos"
   gz_topic_name:  "/model/aries/joint/arm_shoulder_joint/cmd_pos"
@@ -176,8 +176,8 @@
   gz_type_name:   "gz.msgs.Double"
   direction:      ROS_TO_GZ 
 
-- ros_topic_name: "/aries/arm_gripper_joint/cmd_pos"
-  gz_topic_name:  "/model/aries/joint/arm_gripper_joint/cmd_pos"
+- ros_topic_name: "/aries/arm_gripper_base_joint/cmd_pos"
+  gz_topic_name:  "/model/aries/joint/arm_gripper_base_joint/cmd_pos"
   ros_type_name:  "std_msgs/msg/Float64"
   gz_type_name:   "gz.msgs.Double"
   direction:      ROS_TO_GZ
@@ -188,6 +188,23 @@
   gz_type_name:   "gz.msgs.Double"
   direction:      ROS_TO_GZ
 
+- ros_topic_name: "/aries/arm_wrist_joint/cmd_pos"
+  gz_topic_name:  "/model/aries/joint/arm_wrist_joint/cmd_pos"
+  ros_type_name:  "std_msgs/msg/Float64"
+  gz_type_name:   "gz.msgs.Double"
+  direction:      ROS_TO_GZ
+
+- ros_topic_name: "/aries/arm_gripper_left_joint/cmd_pos"
+  gz_topic_name:  "/model/aries/joint/arm_gripper_left_joint/cmd_pos"
+  ros_type_name:  "std_msgs/msg/Float64"
+  gz_type_name:   "gz.msgs.Double"
+  direction:      ROS_TO_GZ
+
+- ros_topic_name: "/aries/arm_gripper_right_joint/cmd_pos"
+  gz_topic_name:  "/model/aries/joint/arm_gripper_right_joint/cmd_pos"
+  ros_type_name:  "std_msgs/msg/Float64"
+  gz_type_name:   "gz.msgs.Double"
+  direction:      ROS_TO_GZ
 
 
 
