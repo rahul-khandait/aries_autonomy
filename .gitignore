@@ -16,7 +16,7 @@ __pycache__/
 *.pyd
 *.egg-info/
 
-.vscode/
+
 .idea/
 .DS_Store
 Thumbs.db
