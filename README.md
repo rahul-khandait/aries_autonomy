@@ -1,4 +1,4 @@
-# Aries-Mars Rover workspace discription and instructions
+# Aries-Mars Rover workspace description and instructions
 
 ## Pre-requisites
 
