@@ -128,13 +128,12 @@
         <plugin 
             filename="gz-sim-joint-state-publisher-system" 
             name="gz::sim::systems::JointStatePublisher">
-            <joint_name>arm_base_joint</joint_name>
-            <joint_name>arm_shoulder_joint</joint_name>
-            <joint_name>arm_elbow_joint</joint_name>
-            <joint_name>arm_wrist_joint</joint_name>
-            <joint_name>arm_gripper_base_joint</joint_name>
-            <joint_name>arm_gripper_left_joint</joint_name>
-            <joint_name>arm_gripper_right_joint</joint_name>
+            <joint_name>joint1</joint_name>
+            <joint_name>joint2</joint_name>
+            <joint_name>joint3</joint_name>
+            <joint_name>joint4</joint_name>
+            <joint_name>joint5</joint_name>
+            <joint_name>joint6</joint_name>
             <joint_name>L_Rocker_Joint</joint_name>
             <joint_name>R_Rocker_Joint</joint_name>
             <joint_name>L_Boggie_Joint</joint_name>
@@ -189,8 +188,8 @@
     
     <plugin filename="gz-sim-joint-position-controller-system"
         name="gz::sim::systems::JointPositionController">
-      <joint_name>arm_base_joint</joint_name>
-      <topic>/model/aries/joint/arm_base_joint/cmd_pos</topic>
+      <joint_name>joint1</joint_name>
+      <topic>/model/aries/joint/joint1/cmd_pos</topic>
       <initial_position>0.0</initial_position>
       <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
       <i_min>-6</i_min><i_max>6</i_max>
@@ -198,8 +197,8 @@
 
     <plugin filename="gz-sim-joint-position-controller-system"
         name="gz::sim::systems::JointPositionController">
-      <joint_name>arm_shoulder_joint</joint_name>
-      <topic>/model/aries/joint/arm_shoulder_joint/cmd_pos</topic>
+      <joint_name>joint2</joint_name>
+      <topic>/model/aries/joint/joint2/cmd_pos</topic>
       <initial_position>0.510</initial_position>
       <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
       <i_min>-6</i_min><i_max>6</i_max>
@@ -207,8 +206,8 @@
 
     <plugin filename="gz-sim-joint-position-controller-system"
         name="gz::sim::systems::JointPositionController">
-      <joint_name>arm_elbow_joint</joint_name>
-      <topic>/model/aries/joint/arm_elbow_joint/cmd_pos</topic>
+      <joint_name>joint3</joint_name>
+      <topic>/model/aries/joint/joint3/cmd_pos</topic>
       <initial_position>1.748</initial_position>
       <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
       <i_min>-6</i_min><i_max>6</i_max>
@@ -216,8 +215,8 @@
 
     <plugin filename="gz-sim-joint-position-controller-system"
         name="gz::sim::systems::JointPositionController">
-      <joint_name>arm_wrist_joint</joint_name>
-      <topic>/model/aries/joint/arm_wrist_joint/cmd_pos</topic>
+      <joint_name>joint4</joint_name>
+      <topic>/model/aries/joint/joint4/cmd_pos</topic>
       <initial_position>1.420</initial_position>
       <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
       <i_min>-6</i_min><i_max>6</i_max>
@@ -225,8 +224,8 @@
 
     <plugin filename="gz-sim-joint-position-controller-system"
         name="gz::sim::systems::JointPositionController">
-      <joint_name>arm_gripper_base_joint</joint_name>
-      <topic>/model/aries/joint/arm_gripper_base_joint/cmd_pos</topic>
+      <joint_name>joint5</joint_name>
+      <topic>/model/aries/joint/joint5/cmd_pos</topic>
       <initial_position>0.0</initial_position>
       <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
       <i_min>-6</i_min><i_max>6</i_max>
@@ -234,17 +233,8 @@
 
     <plugin filename="gz-sim-joint-position-controller-system"
         name="gz::sim::systems::JointPositionController">
-      <joint_name>arm_gripper_left_joint</joint_name>
-      <topic>/model/aries/joint/arm_gripper_left_joint/cmd_pos</topic>
-      <initial_position>0.0</initial_position>
-      <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
-      <i_min>-6</i_min><i_max>6</i_max>
-    </plugin>
-
-    <plugin filename="gz-sim-joint-position-controller-system"
-        name="gz::sim::systems::JointPositionController">
-      <joint_name>arm_gripper_right_joint</joint_name>
-      <topic>/model/aries/joint/arm_gripper_right_joint/cmd_pos</topic>
+      <joint_name>joint6</joint_name>
+      <topic>/model/aries/joint/joint6/cmd_pos</topic>
       <initial_position>0.0</initial_position>
       <p_gain>300</p_gain><i_gain>2</i_gain><d_gain>30</d_gain>
       <i_min>-6</i_min><i_max>6</i_max>

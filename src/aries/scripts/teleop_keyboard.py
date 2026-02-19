@@ -56,13 +56,13 @@ from std_msgs.msg import Float64
 from geometry_msgs.msg import Twist
 
 # ===== Topic names (match your gazebo_bridge.yaml) =====
-TOPIC_BASE = "/aries/arm_base_joint/cmd_pos"
-TOPIC_SHOULDER = "/aries/arm_shoulder_joint/cmd_pos"
-TOPIC_ELBOW = "/aries/arm_elbow_joint/cmd_pos"
-TOPIC_GRIPPER_BASE = "/aries/arm_gripper_base_joint/cmd_pos"
-TOPIC_GRIPPER_LEFT = "/aries/arm_gripper_left_joint/cmd_pos"
-TOPIC_GRIPPER_RIGHT = "/aries/arm_gripper_right_joint/cmd_pos"
-TOPIC_WRIST = "/aries/arm_wrist_joint/cmd_pos"
+TOPIC_BASE = "/aries/joint1/cmd_pos"
+TOPIC_SHOULDER = "/aries/joint2/cmd_pos"
+TOPIC_ELBOW = "/aries/joint3/cmd_pos"
+TOPIC_GRIPPER_BASE = "/aries/joint5/cmd_pos"
+TOPIC_GRIPPER_LEFT = "/aries/joint6/cmd_pos"
+TOPIC_GRIPPER_RIGHT = "/aries/joint7/cmd_pos"
+TOPIC_WRIST = "/aries/joint4/cmd_pos"
 TOPIC_CMD_VEL = "/cmd_vel"
 
 # ===== Joint limits pulled from aries/urdf/arm.xacro =====
