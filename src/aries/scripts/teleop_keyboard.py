@@ -3,13 +3,12 @@
 Keyboard + WASD teleop for the Aries arm (ROS 2).
 
 Publishes position setpoints (std_msgs/Float64) to the ROS ↔ Gazebo bridge topics:
-  /aries/arm_base_joint/cmd_pos
-  /aries/arm_shoulder_joint/cmd_pos
-  /aries/arm_elbow_joint/cmd_pos
-  /aries/arm_gripper_base_joint/cmd_pos
-  /aries/arm_wrist_joint/cmd_pos
-  /aries/arm_gripper_left_joint/cmd_pos
-  /aries/arm_gripper_right_joint/cmd_pos
+  /aries/joint1/cmd_pos              (arm base)
+  /aries/joint2/cmd_pos              (arm shoulder)
+  /aries/joint3/cmd_pos              (arm elbow)
+  /aries/joint4/cmd_pos              (arm wrist)
+  /aries/joint5/cmd_pos              (gripper base)
+  /aries/gripper_gear_left_joint/cmd_pos  (gripper - controls both jaws via mimic)
 
 Also drives the mobile base with geometry_msgs/Twist on:
   /cmd_vel
@@ -19,13 +18,16 @@ Default keybindings (tap or hold):
     Base            ← 4   6 →   (or ← →)
     Shoulder        ↓ 2   8 ↑   (or ↓ ↑)
     Elbow           ↓ 1   7 ↑
+    Wrist           ↓ 3   9 ↑
     Gripper_base    ↓ -  + ↑
     Gripper         5 toggle (open/close)
   Base (/cmd_vel)
     W/S  forward/back     A/D  rotate left/right     SPACE  stop
 
 Other keys:
-  0 : reset all joints & velocities to 0
+  0 : reset all joints & velocities to default
+  t : move arm to down position
+  y : move arm to straight position  
   [ / ] : decrease / increase step sizes (affects joints & speeds)
   h : show help & current values
   q or ESC (real key or glyph ␛) : quit
@@ -37,7 +39,7 @@ Safety:
 
 Usage:
   # In a terminal with your ROS 2 workspace sourced and simulation running
-  python3 aries_teleop_keyboard.py
+  python3 teleop_keyboard.py
 
 Tip: If you want a different namespace or topic names, edit TOPIC_* constants below or use ROS remapping.
 """
@@ -59,21 +61,19 @@ from geometry_msgs.msg import Twist
 TOPIC_BASE = "/aries/joint1/cmd_pos"
 TOPIC_SHOULDER = "/aries/joint2/cmd_pos"
 TOPIC_ELBOW = "/aries/joint3/cmd_pos"
-TOPIC_GRIPPER_BASE = "/aries/joint5/cmd_pos"
-TOPIC_GRIPPER_LEFT = "/aries/joint6/cmd_pos"
-TOPIC_GRIPPER_RIGHT = "/aries/joint7/cmd_pos"
 TOPIC_WRIST = "/aries/joint4/cmd_pos"
+TOPIC_GRIPPER_BASE = "/aries/joint5/cmd_pos"
+TOPIC_GRIPPER = "/aries/gripper_gear_left_joint/cmd_pos"  # Controls both jaws via mimic
 TOPIC_CMD_VEL = "/cmd_vel"
 
-# ===== Joint limits pulled from aries/urdf/arm.xacro =====
+# ===== Joint limits pulled from aries/urdf/arm.xacro and gripper_new.xacro =====
 JOINT_LIMITS = {
     "base": (-3.14, 3.14),
     "shoulder": (-1.918, 1.918),
     "elbow": (-1.748, 1.748),
-    "gripper_base": (-1.57, 1.57),
-    "gripper_left": (0.0, 0.08925),
-    "gripper_right": (0.0, 0.08925),
     "wrist": (-1.942, 1.942),
+    "gripper_base": (-1.57, 1.57),
+    "gripper": (-1.57, 0.07),  # Four-bar linkage gripper (gear joint)
 }
 
 # ===== Velocity limits for /cmd_vel (m/s and rad/s) =====
@@ -84,15 +84,14 @@ class ArmState:
     base: float = 0.0
     shoulder: float = 0.510
     elbow: float = 1.748
-    gripper_base: float = 0.0
-    gripper_left: float = 0.0
-    gripper_right: float = 0.0
     wrist: float = 1.420
+    gripper_base: float = 0.0
+    gripper: float = 0.07  # Starting position (closed)
     v_lin: float = 0.0   # m/s
     v_ang: float = 0.0   # rad/s
 
     def clamp(self):
-        for j in ("base", "shoulder", "elbow", "gripper_base", "gripper_left", "gripper_right", "wrist"):
+        for j in ("base", "shoulder", "elbow", "wrist", "gripper_base", "gripper"):
             low, high = JOINT_LIMITS[j]
             v = getattr(self, j)
             if v < low:
@@ -111,13 +110,12 @@ class ArmDown:
     elbow: float = 0.330
     wrist: float = 0.980
     gripper_base: float = 0.0
-    gripper_left: float = 0.0
-    gripper_right: float = 0.0
+    gripper: float = 0.07
     v_lin: float = 0.0   # m/s
     v_ang: float = 0.0   # rad/s
 
     def clamp(self):
-        for j in ("base", "shoulder", "elbow", "gripper_base", "gripper_left", "gripper_right", "wrist"):
+        for j in ("base", "shoulder", "elbow", "wrist", "gripper_base", "gripper"):
             low, high = JOINT_LIMITS[j]
             v = getattr(self, j)
             if v < low:
@@ -134,15 +132,14 @@ class ArmStraight:
     base: float = 0.0
     shoulder: float = 0.0
     elbow: float = 0.0
-    gripper_base: float = 0.0
-    gripper_left: float = 0.0
-    gripper_right: float = 0.0
     wrist: float = 0.0
+    gripper_base: float = 0.0
+    gripper: float = 0.07
     v_lin: float = 0.0   # m/s
     v_ang: float = 0.0   # rad/s
 
     def clamp(self):
-        for j in ("base", "shoulder", "elbow", "gripper_base", "gripper_left", "gripper_right", "wrist"):
+        for j in ("base", "shoulder", "elbow", "wrist", "gripper_base", "gripper"):
             low, high = JOINT_LIMITS[j]
             v = getattr(self, j)
             if v < low:
@@ -161,10 +158,9 @@ class AriesArmTeleop(Node):
         self.pub_base = self.create_publisher(Float64, TOPIC_BASE, 10)
         self.pub_shoulder = self.create_publisher(Float64, TOPIC_SHOULDER, 10)
         self.pub_elbow = self.create_publisher(Float64, TOPIC_ELBOW, 10)
-        self.pub_gripper_base = self.create_publisher(Float64, TOPIC_GRIPPER_BASE, 10)
-        self.pub_gripper_left = self.create_publisher(Float64, TOPIC_GRIPPER_LEFT, 10)
-        self.pub_gripper_right = self.create_publisher(Float64, TOPIC_GRIPPER_RIGHT, 10)
         self.pub_wrist = self.create_publisher(Float64, TOPIC_WRIST, 10)
+        self.pub_gripper_base = self.create_publisher(Float64, TOPIC_GRIPPER_BASE, 10)
+        self.pub_gripper = self.create_publisher(Float64, TOPIC_GRIPPER, 10)
         self.pub_cmdvel = self.create_publisher(Twist, TOPIC_CMD_VEL, 10)
 
         self.state = ArmState()
@@ -184,10 +180,9 @@ class AriesArmTeleop(Node):
             (self.pub_base, self.state.base),
             (self.pub_shoulder, self.state.shoulder),
             (self.pub_elbow, self.state.elbow),
-            (self.pub_gripper_base, self.state.gripper_base),
-            (self.pub_gripper_left, self.state.gripper_left),
-            (self.pub_gripper_right, self.state.gripper_right),
             (self.pub_wrist, self.state.wrist),
+            (self.pub_gripper_base, self.state.gripper_base),
+            (self.pub_gripper, self.state.gripper),
         ):
             msg = Float64()
             msg.data = float(val)
@@ -252,23 +247,23 @@ class AriesArmTeleop(Node):
             f"elbow={self.state.elbow:.3f}{low_high('elbow')}  "
             f"wrist={self.state.wrist:.3f}{low_high('wrist')}  "
             f"gripper_base={self.state.gripper_base:.3f}{low_high('gripper_base')}  "
-            f"gripper_left={self.state.gripper_left:.3f}{low_high('gripper_left')}  "
-            f"gripper_right={self.state.gripper_right:.3f}{low_high('gripper_right')}  "
+            f"gripper={self.state.gripper:.3f}{low_high('gripper')}  "
             f" | v_lin={self.state.v_lin:.2f} m/s, v_ang={self.state.v_ang:.2f} rad/s ({vlow_high()})  "
             f" | step={self.step:.3f}, gstep={self.gstep:.3f}, vstep=({self.vstep_lin:.2f},{self.vstep_ang:.2f})"
         )
         self.get_logger().info(s)
         
     def is_gripper_open(self) -> bool:
-        """Heuristic: consider gripper open if it's past half of its max range."""
-        max_open = JOINT_LIMITS["gripper_left"][1]
-        return (self.state.gripper_left + self.state.gripper_right) * 0.5 > 0.5 * max_open
+        """Heuristic: consider gripper open if closer to lower limit (more negative)."""
+        low, high = JOINT_LIMITS["gripper"]
+        mid = (low + high) / 2.0
+        return self.state.gripper < mid
 
     def set_gripper(self, open_: bool):
         """Directly set the gripper to fully open or fully closed, then clamp & print status."""
-        target = JOINT_LIMITS["gripper_left"][1] if open_ else JOINT_LIMITS["gripper_left"][0]
-        self.state.gripper_left = float(target)
-        self.state.gripper_right = float(target)
+        low, high = JOINT_LIMITS["gripper"]
+        target = low if open_ else high  # Lower limit = open, higher = closed
+        self.state.gripper = float(target)
         self.state.clamp()
         self.status(prefix="Gripper " + ("OPEN " if open_ else "CLOSE "))
 
