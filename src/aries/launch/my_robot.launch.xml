@@ -4,13 +4,13 @@
   <let name="rviz_config_path" value="$(find-pkg-share aries)/rviz/urdf_config.rviz"/>
   <let name="gazebo_config_path" value="$(find-pkg-share aries)/config/gazebo_bridge.yaml"/>
   <let name="gz_gui_config_path" value="$(find-pkg-share aries)/config/gz_gui_config.config"/>
-  <let name="world_path" value="$(find-pkg-share aries)/worlds/marsyard.sdf"/>
+  <let name="world_path" value="$(find-pkg-share aries)/worlds/mars_terrain.sdf"/>
   <arg name="aries_share" default="$(find-pkg-share aries)"/>
   
    <!-- spawn position (you can tweak these at launch time) -->
   <arg name="spawn_x" default="0.0"/>
   <arg name="spawn_y" default="0.0"/>
-  <arg name="spawn_z" default="1.65"/>  <!-- start 1.65 m above terrain for marsyard-->
+  <arg name="spawn_z" default="0.2"/>  <!-- start 0.2 m above terrain for marsyard-->
 
  
   <!-- Prefer GZ_SIM_RESOURCE_PATH for Gazebo Sim. You can prepend multiple dirs. -->
@@ -53,8 +53,9 @@
 
   
 
-  <!-- RViz2 (optional) -->
+  <!-- RViz2 (optional)  
   <node pkg="rviz2" exec="rviz2" output="screen" args="-d $(var rviz_config_path)">
     <param name="use_sim_time" value="true"/>
-  </node>
-</launch>
+  </node>   -->
+</launch> 
+

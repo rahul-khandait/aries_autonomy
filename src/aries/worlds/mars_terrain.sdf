@@ -1,0 +1,1243 @@
+<sdf version='1.10'>
+  <world name='empty'>
+    <physics name='1ms' type='ignored'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <plugin name='gz::sim::systems::Physics' filename='gz-sim-physics-system'/>
+    <plugin name='gz::sim::systems::UserCommands' filename='gz-sim-user-commands-system'/>
+    <plugin name='gz::sim::systems::SceneBroadcaster' filename='gz-sim-scene-broadcaster-system'/>
+    <plugin name='gz::sim::systems::Contact' filename='gz-sim-contact-system'/>
+    <gravity>0 0 -9.8000000000000007</gravity>
+    <magnetic_field>5.5644999999999998e-06 2.2875799999999999e-05 -4.2388400000000002e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <scene>
+      <ambient>0.400000006 0.400000006 0.400000006 1</ambient>
+      <background>0.699999988 0.699999988 0.699999988 1</background>
+      <shadows>true</shadows>
+    </scene>
+    <model name='ground_plane'>
+      <static>true</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.800000012 0.800000012 0.800000012 1</ambient>
+            <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+            <specular>0.800000012 0.800000012 0.800000012 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='falling_rock1'>
+      <link name='base_link'>
+        <inertial>
+          <pose>-0.056100999999999998 0.0073400000000000002 0.020250000000000001 0 0 0</pose>
+          <mass>2569.46</mass>
+          <inertia>
+            <ixx>466.31400000000002</ixx>
+            <ixy>6.5540000000000003</ixy>
+            <ixz>-0.84599999999999997</ixz>
+            <iyy>479.238</iyy>
+            <iyz>-5.226</iyz>
+            <izz>499.18400000000003</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 1/6/meshes/FallingRock01_Collider.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 1/6/meshes/FallingRock01.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures/FallingRocks_Albedo.jpg</albedo_map>
+                <normal_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures/FallingRocks_Normal.jpg</normal_map>
+                <roughness_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures/FallingRocks_Roughness.jpg</roughness_map>
+              </metal>
+            </pbr>
+            <script>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/scripts</uri>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures</uri>
+              <name>FallingRocks/FallingRocks_Diffuse</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-7.2686853408813477 -6.9684553146362305 0.4381452202796936 0.46294198591731978 -0.075504296941184837 0.3784919976012891</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='falling_rock1_0'>
+      <link name='base_link'>
+        <inertial>
+          <pose>-0.056100999999999998 0.0073400000000000002 0.020250000000000001 0 0 0</pose>
+          <mass>2569.46</mass>
+          <inertia>
+            <ixx>466.31400000000002</ixx>
+            <ixy>6.5540000000000003</ixy>
+            <ixz>-0.84599999999999997</ixz>
+            <iyy>479.238</iyy>
+            <iyz>-5.226</iyz>
+            <izz>499.18400000000003</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 1/6/meshes/FallingRock01_Collider.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 1/6/meshes/FallingRock01.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures/FallingRocks_Albedo.jpg</albedo_map>
+                <normal_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures/FallingRocks_Normal.jpg</normal_map>
+                <roughness_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures/FallingRocks_Roughness.jpg</roughness_map>
+              </metal>
+            </pbr>
+            <script>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/scripts</uri>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures</uri>
+              <name>FallingRocks/FallingRocks_Diffuse</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-5.2330598831176749 -0.90887522697448697 0.37167471647262595 0.46294198591731978 -0.075504296941184809 0.37849199760128915</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='falling_rock1_1'>
+      <link name='base_link'>
+        <inertial>
+          <pose>-0.056100999999999998 0.0073400000000000002 0.020250000000000001 0 0 0</pose>
+          <mass>2569.46</mass>
+          <inertia>
+            <ixx>466.31400000000002</ixx>
+            <ixy>6.5540000000000003</ixy>
+            <ixz>-0.84599999999999997</ixz>
+            <iyy>479.238</iyy>
+            <iyz>-5.226</iyz>
+            <izz>499.18400000000003</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 1/6/meshes/FallingRock01_Collider.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 1/6/meshes/FallingRock01.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures/FallingRocks_Albedo.jpg</albedo_map>
+                <normal_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures/FallingRocks_Normal.jpg</normal_map>
+                <roughness_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures/FallingRocks_Roughness.jpg</roughness_map>
+              </metal>
+            </pbr>
+            <script>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/scripts</uri>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures</uri>
+              <name>FallingRocks/FallingRocks_Diffuse</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-6.9477863311767569 5.5924677848815927 0.38130059838294988 -0.00040694610400214239 -0.00063039914392044026 -0.00051414014118990434</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='falling_rock1_2'>
+      <link name='base_link'>
+        <inertial>
+          <pose>-0.056100999999999998 0.0073400000000000002 0.020250000000000001 0 0 0</pose>
+          <mass>2569.46</mass>
+          <inertia>
+            <ixx>466.31400000000002</ixx>
+            <ixy>6.5540000000000003</ixy>
+            <ixz>-0.84599999999999997</ixz>
+            <iyy>479.238</iyy>
+            <iyz>-5.226</iyz>
+            <izz>499.18400000000003</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 1/6/meshes/FallingRock01_Collider.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 1/6/meshes/FallingRock01.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures/FallingRocks_Albedo.jpg</albedo_map>
+                <normal_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures/FallingRocks_Normal.jpg</normal_map>
+                <roughness_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures/FallingRocks_Roughness.jpg</roughness_map>
+              </metal>
+            </pbr>
+            <script>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/scripts</uri>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 1/6/files/materials/textures</uri>
+              <name>FallingRocks/FallingRocks_Diffuse</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-6.548590183258054 4.8117599487304688 -0.00038181099807843512 0.0012865702021302129 0.00011219902648097242 0.00017852603358264551</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='falling_rock2'>
+      <link name='base_link'>
+        <inertial>
+          <pose>-0.014732 -0.014451 0.0037100000000000002 0 0 0</pose>
+          <mass>646.50800000000004</mass>
+          <inertia>
+            <ixx>49.619999999999997</ixx>
+            <ixy>4.0800000000000001</ixy>
+            <ixz>-0.32400000000000001</ixz>
+            <iyy>46.472000000000001</iyy>
+            <iyz>-3.9260000000000002</iyz>
+            <izz>51.061999999999998</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 2/6/meshes/FallingRock02_Collider.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 2/6/meshes/FallingRock02.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures/FallingRocks_Albedo.jpg</albedo_map>
+                <normal_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures/FallingRocks_Normal.jpg</normal_map>
+                <roughness_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures/FallingRocks_Roughness.jpg</roughness_map>
+              </metal>
+            </pbr>
+            <script>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/scripts</uri>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures</uri>
+              <name>FallingRocks/FallingRocks_Diffuse</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-4.4946413040161124 0.86805045604705822 0.30076146125793463 0.042671099904543416 -0.016647899780262338 0.031839801507719825</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='falling_rock2_0'>
+      <link name='base_link'>
+        <inertial>
+          <pose>-0.014732 -0.014451 0.0037100000000000002 0 0 0</pose>
+          <mass>646.50800000000004</mass>
+          <inertia>
+            <ixx>49.619999999999997</ixx>
+            <ixy>4.0800000000000001</ixy>
+            <ixz>-0.32400000000000001</ixz>
+            <iyy>46.472000000000001</iyy>
+            <iyz>-3.9260000000000002</iyz>
+            <izz>51.061999999999998</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 2/6/meshes/FallingRock02_Collider.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 2/6/meshes/FallingRock02.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures/FallingRocks_Albedo.jpg</albedo_map>
+                <normal_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures/FallingRocks_Normal.jpg</normal_map>
+                <roughness_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures/FallingRocks_Roughness.jpg</roughness_map>
+              </metal>
+            </pbr>
+            <script>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/scripts</uri>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures</uri>
+              <name>FallingRocks/FallingRocks_Diffuse</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-5.4964814186096191 -8.9432287216186541 0.27499151229858382 0.042671099904543416 -0.016647899780262338 0.031839801507719825</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='falling_rock2_1'>
+      <link name='base_link'>
+        <inertial>
+          <pose>-0.014732 -0.014451 0.0037100000000000002 0 0 0</pose>
+          <mass>646.50800000000004</mass>
+          <inertia>
+            <ixx>49.619999999999997</ixx>
+            <ixy>4.0800000000000001</ixy>
+            <ixz>-0.32400000000000001</ixz>
+            <iyy>46.472000000000001</iyy>
+            <iyz>-3.9260000000000002</iyz>
+            <izz>51.061999999999998</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 2/6/meshes/FallingRock02_Collider.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 2/6/meshes/FallingRock02.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures/FallingRocks_Albedo.jpg</albedo_map>
+                <normal_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures/FallingRocks_Normal.jpg</normal_map>
+                <roughness_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures/FallingRocks_Roughness.jpg</roughness_map>
+              </metal>
+            </pbr>
+            <script>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/scripts</uri>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures</uri>
+              <name>FallingRocks/FallingRocks_Diffuse</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-1.5516623258590698 6.486480712890625 -0.22764791548252103 0.042671099904543416 -0.016647899780262345 0.031839801507719818</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='falling_rock2_2'>
+      <link name='base_link'>
+        <inertial>
+          <pose>-0.014732 -0.014451 0.0037100000000000002 0 0 0</pose>
+          <mass>646.50800000000004</mass>
+          <inertia>
+            <ixx>49.619999999999997</ixx>
+            <ixy>4.0800000000000001</ixy>
+            <ixz>-0.32400000000000001</ixz>
+            <iyy>46.472000000000001</iyy>
+            <iyz>-3.9260000000000002</iyz>
+            <izz>51.061999999999998</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 2/6/meshes/FallingRock02_Collider.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 2/6/meshes/FallingRock02.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures/FallingRocks_Albedo.jpg</albedo_map>
+                <normal_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures/FallingRocks_Normal.jpg</normal_map>
+                <roughness_map>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures/FallingRocks_Roughness.jpg</roughness_map>
+              </metal>
+            </pbr>
+            <script>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/scripts</uri>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/falling rock 2/6/files/materials/textures</uri>
+              <name>FallingRocks/FallingRocks_Diffuse</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-1.533710002899169 5.4468097686767578 -0.21865899860858917 -0.013483408163819082 -0.043773518788781815 1.5297869457506761</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='frc2016_rockwall'>
+      <static>true</static>
+      <link name='link'>
+        <inertial>
+          <mass>10</mass>
+          <pose>0 0 0.08974 0 0 0</pose>
+          <inertia>
+            <ixx>0.32709083300000003</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1.3741666669999999</iyy>
+            <iyz>0</iyz>
+            <izz>1.641090833</izz>
+          </inertia>
+        </inertial>
+        <visual name='platform'>
+          <pose>0 0 0.064320000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.59689999999999999 0.0031749999999999999</size>
+            </box>
+          </geometry>
+        </visual>
+        <collision name='platform'>
+          <pose>0 0 0.064320000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.59689999999999999 0.0031749999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='up1'>
+          <pose>0 0.051659999999999998 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.460000008 0.460000008 0.460000008 1</ambient>
+            <diffuse>0.460000008 0.460000008 0.460000008 1</diffuse>
+          </material>
+        </visual>
+        <collision name='up1'>
+          <pose>0 0.051659999999999998 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='up2'>
+          <pose>0 -0.058009999999999999 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.460000008 0.460000008 0.460000008 1</ambient>
+            <diffuse>0.460000008 0.460000008 0.460000008 1</diffuse>
+          </material>
+        </visual>
+        <collision name='up2'>
+          <pose>0 -0.058009999999999999 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='top'>
+          <pose>0 -0.00249 0.18251999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.1143 0.00462</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.460000008 0.460000008 0.460000008 1</ambient>
+            <diffuse>0.460000008 0.460000008 0.460000008 1</diffuse>
+          </material>
+        </visual>
+        <collision name='top'>
+          <pose>0 -0.00249 0.18251999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.1143 0.00462</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-2.7002499103546143 -7.5103697776794434 -0.10456207394599915 0 0 1.5712199869170431</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='frc2016_rockwall_1'>
+      <static>true</static>
+      <link name='link'>
+        <inertial>
+          <mass>10</mass>
+          <pose>0 0 0.08974 0 0 0</pose>
+          <inertia>
+            <ixx>0.32709083300000003</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1.3741666669999999</iyy>
+            <iyz>0</iyz>
+            <izz>1.641090833</izz>
+          </inertia>
+        </inertial>
+        <visual name='platform'>
+          <pose>0 0 0.064320000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.59689999999999999 0.0031749999999999999</size>
+            </box>
+          </geometry>
+        </visual>
+        <collision name='platform'>
+          <pose>0 0 0.064320000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.59689999999999999 0.0031749999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='up1'>
+          <pose>0 0.051659999999999998 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.460000008 0.460000008 0.460000008 1</ambient>
+            <diffuse>0.460000008 0.460000008 0.460000008 1</diffuse>
+          </material>
+        </visual>
+        <collision name='up1'>
+          <pose>0 0.051659999999999998 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='up2'>
+          <pose>0 -0.058009999999999999 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.460000008 0.460000008 0.460000008 1</ambient>
+            <diffuse>0.460000008 0.460000008 0.460000008 1</diffuse>
+          </material>
+        </visual>
+        <collision name='up2'>
+          <pose>0 -0.058009999999999999 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='top'>
+          <pose>0 -0.00249 0.18251999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.1143 0.00462</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.460000008 0.460000008 0.460000008 1</ambient>
+            <diffuse>0.460000008 0.460000008 0.460000008 1</diffuse>
+          </material>
+        </visual>
+        <collision name='top'>
+          <pose>0 -0.00249 0.18251999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.1143 0.00462</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-2.6985399723052979 -6.2470002174377441 -0.10639206320047379 0 0 1.5712199869170431</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='frc2016_rockwall_1_1'>
+      <static>true</static>
+      <link name='link'>
+        <inertial>
+          <mass>10</mass>
+          <pose>0 0 0.08974 0 0 0</pose>
+          <inertia>
+            <ixx>0.32709083300000003</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1.3741666669999999</iyy>
+            <iyz>0</iyz>
+            <izz>1.641090833</izz>
+          </inertia>
+        </inertial>
+        <visual name='platform'>
+          <pose>0 0 0.064320000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.59689999999999999 0.0031749999999999999</size>
+            </box>
+          </geometry>
+        </visual>
+        <collision name='platform'>
+          <pose>0 0 0.064320000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.59689999999999999 0.0031749999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='up1'>
+          <pose>0 0.051659999999999998 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.460000008 0.460000008 0.460000008 1</ambient>
+            <diffuse>0.460000008 0.460000008 0.460000008 1</diffuse>
+          </material>
+        </visual>
+        <collision name='up1'>
+          <pose>0 0.051659999999999998 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='up2'>
+          <pose>0 -0.058009999999999999 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.460000008 0.460000008 0.460000008 1</ambient>
+            <diffuse>0.460000008 0.460000008 0.460000008 1</diffuse>
+          </material>
+        </visual>
+        <collision name='up2'>
+          <pose>0 -0.058009999999999999 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='top'>
+          <pose>0 -0.00249 0.18251999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.1143 0.00462</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.460000008 0.460000008 0.460000008 1</ambient>
+            <diffuse>0.460000008 0.460000008 0.460000008 1</diffuse>
+          </material>
+        </visual>
+        <collision name='top'>
+          <pose>0 -0.00249 0.18251999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.1143 0.00462</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-2.0486600399017334 -5.6950101852416992 -0.12306392937898636 0 0 1.5712199869170431</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='frc2016_rockwall_1_1_1'>
+      <static>true</static>
+      <link name='link'>
+        <inertial>
+          <mass>10</mass>
+          <pose>0 0 0.08974 0 0 0</pose>
+          <inertia>
+            <ixx>0.32709083300000003</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1.3741666669999999</iyy>
+            <iyz>0</iyz>
+            <izz>1.641090833</izz>
+          </inertia>
+        </inertial>
+        <visual name='platform'>
+          <pose>0 0 0.064320000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.59689999999999999 0.0031749999999999999</size>
+            </box>
+          </geometry>
+        </visual>
+        <collision name='platform'>
+          <pose>0 0 0.064320000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.59689999999999999 0.0031749999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='up1'>
+          <pose>0 0.051659999999999998 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.460000008 0.460000008 0.460000008 1</ambient>
+            <diffuse>0.460000008 0.460000008 0.460000008 1</diffuse>
+          </material>
+        </visual>
+        <collision name='up1'>
+          <pose>0 0.051659999999999998 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='up2'>
+          <pose>0 -0.058009999999999999 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.460000008 0.460000008 0.460000008 1</ambient>
+            <diffuse>0.460000008 0.460000008 0.460000008 1</diffuse>
+          </material>
+        </visual>
+        <collision name='up2'>
+          <pose>0 -0.058009999999999999 0.12537000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.00462 0.11892</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='top'>
+          <pose>0 -0.00249 0.18251999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.1143 0.00462</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.460000008 0.460000008 0.460000008 1</ambient>
+            <diffuse>0.460000008 0.460000008 0.460000008 1</diffuse>
+          </material>
+        </visual>
+        <collision name='top'>
+          <pose>0 -0.00249 0.18251999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.27 0.1143 0.00462</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-2.0499799251556396 -4.4498801231384277 -0.1247732862830162 0 0 1.5712199869170431</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <include>
+      <uri>file:///home/rahul/.gz/fuel/fuel.gazebosim.org/openrobotics/models/falling rock 2/6</uri>
+      <name>falling_rock2_3</name>
+      <pose>-5.5725398063659668 3.4972999095916748 -0.29855531454086304 0 0 0</pose>
+    </include>
+    <model name='cylinder'>
+      <pose>-8.9811983108520508 0.97775900363922119 0.5 0 0 0</pose>
+      <link name='cylinder_link'>
+        <inertial>
+          <inertia>
+            <ixx>0.14580000000000001</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.14580000000000001</iyy>
+            <iyz>0</iyz>
+            <izz>0.125</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name='cylinder_collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.5</radius>
+              <length>1</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='cylinder_visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.10000000000000001</radius>
+              <length>2</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='cylinder_1'>
+      <pose>-9.012346495167975 -1.0121259450758813 0.5 0 0 0</pose>
+      <link name='cylinder_link'>
+        <inertial>
+          <inertia>
+            <ixx>0.14580000000000001</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.14580000000000001</iyy>
+            <iyz>0</iyz>
+            <izz>0.125</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name='cylinder_collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.5</radius>
+              <length>1</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='cylinder_visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.10000000000000001</radius>
+              <length>2</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='box'>
+      <pose>-2.498150110244751 0.49283799529075623 -0.2164795845746994 0 0 0</pose>
+      <link name='box_link'>
+        <inertial>
+          <inertia>
+            <ixx>0.16666</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.16666</iyy>
+            <iyz>0</iyz>
+            <izz>0.16666</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name='box_collision'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='box_visual'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='box_0'>
+      <pose>-2.4876399040222168 1.3118331432342529 -0.34988549351692194 -0.31393998167267784 0 0</pose>
+      <link name='box_link'>
+        <inertial>
+          <inertia>
+            <ixx>0.16666</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.16666</iyy>
+            <iyz>0</iyz>
+            <izz>0.16666</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name='box_collision'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='box_visual'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='capsule'>
+      <pose>-3.3680999279022217 3.0115900039672852 0.34098318219184875 0 0 0</pose>
+      <link name='capsule_link'>
+        <inertial>
+          <inertia>
+            <ixx>0.074153999999999998</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.074153999999999998</iyy>
+            <iyz>0</iyz>
+            <izz>0.018769000000000001</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name='capsule_collision'>
+          <geometry>
+            <capsule>
+              <radius>0.20000000000000001</radius>
+              <length>0.59999999999999998</length>
+            </capsule>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='capsule_visual'>
+          <geometry>
+            <capsule>
+              <radius>0.20000000000000001</radius>
+              <length>0.59999999999999998</length>
+            </capsule>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <light name='sun' type='directional'>
+      <pose>0 0 10 0 0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>-0.5 0.10000000000000001 -0.90000000000000002</direction>
+      <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+      <specular>0.200000003 0.200000003 0.200000003 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <linear>0.0099999997764825821</linear>
+        <constant>0.89999997615814209</constant>
+        <quadratic>0.0010000000474974513</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+  </world>
+</sdf>

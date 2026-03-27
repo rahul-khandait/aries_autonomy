@@ -281,8 +281,11 @@
             <odom_publish_frequency>60</odom_publish_frequency>
         </plugin>
   </gazebo>
-    
+
+
+  <!-- IMU Plugin   
   <gazebo reference="imu_frame">
+      <plugin filename='gz-sim-imu-system' name='gz::sim::systems::Imu'/>
       <sensor name="imu_sensor" type="imu">
           <always_on>1</always_on>
           <update_rate>60</update_rate>
@@ -290,7 +293,40 @@
           <visualize>true</visualize>
           <topic>/imu</topic>
       </sensor>
+  </gazebo> -->
+
+
+
+  <!-- IMU Sensor -->
+  <gazebo reference="imu_frame">
+
+    <sensor name="imu_sensor" type="imu">
+
+      <always_on>true</always_on>
+      <update_rate>60</update_rate>
+      <visualize>true</visualize>
+      <topic>/imu</topic>
+
+      <imu>
+        <angular_velocity>
+          <x>0</x>
+          <y>0</y>
+          <z>0</z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x>0</x>
+          <y>0</y>
+          <z>0</z>
+        </linear_acceleration>
+      </imu>
+
+      <plugin filename="gz-sim-imu-system"
+              name="gz::sim::systems::Imu"/>
+
+    </sensor>
+
   </gazebo>
+
 
 
   <!-- Gazebo Plugin for Diff Drive -->

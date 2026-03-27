@@ -22,14 +22,14 @@
     <xacro:property name="wheel_thickness" value="0.070"/>
 
     <!-- Mesh locations -->
-    <xacro:property name="mesh_location" value="file:///home/shreyas/aries/src/aries/meshes"/>
+    <xacro:property name="mesh_location" value="file:///home/rahul/aries_autonomy/src/aries/meshes"/>
 
 
     <!-- Enable Mimic joints -->
     <xacro:property name="enable_mimic" value="true"/>
 
     <!-- Enable Lidar -->
-    <xacro:property name="enable_lidar" value="true"/>
+    <xacro:property name="enable_lidar" value="false"/>
 
     <!-- Enable D435i -->
     <xacro:property name="enable_D435i" value="true"/>
